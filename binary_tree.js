@@ -2,6 +2,7 @@ class BinaryTree{
   constructor(x, y){
     this.pos = createVector(x, y);
     this.root = null;
+    this.nodes = [];
   }
 
   getRoot(){
@@ -10,7 +11,9 @@ class BinaryTree{
 
 	insert_aux(node, data, level, path){
 		if (node == null){
-			return new Node(data, width / 2, SIZE * 2, level, path);
+      let node = new Node(data, width / 2, SIZE * 2, level, path, TURQUOISELIGHT);
+      this.nodes.push(node);
+      return node;
 		}
 		if (data == node.data){
       return node;
@@ -49,67 +52,62 @@ class BinaryTree{
     return this.search_aux(this.root, data);
   }
 
-  inorderscan_aux(node){
+  async inorderscan_aux(node){
     if (node == null){
       return;
     }
-    this.inorderscan_aux(node.left);
+    await this.inorderscan_aux(node.left);
+    await sleep(DELAY_IN_MS);
+    node.setBackcolor(GREEN);
     console.log(node.data + " " + node.level);
-    this.inorderscan_aux(node.right);
+    await this.inorderscan_aux(node.right);
   }
 
-  inorderscan(){
-    this.inorderscan_aux(this.root);
+  async inorderscan(){
+    await this.inorderscan_aux(this.root);
   }
 
 
-  preorderscan_aux(node){
+  async preorderscan_aux(node){
     if (node == null){
       return;
     }
+    await sleep(DELAY_IN_MS);
+    node.setBackcolor(GREEN);
     console.log(node.data + " " + node.level);
-    this.preorderscan_aux(node.left);
-    this.preorderscan_aux(node.right);
+    await this.preorderscan_aux(node.left);
+    await this.preorderscan_aux(node.right);
   }
 
-  preorderscan(){
-    this.preorderscan_aux(this.root);
+  async preorderscan(){
+    await this.preorderscan_aux(this.root);
   }
 
 
-  postorderscan_aux(node){
+  async postorderscan_aux(node){
     if (node == null){
       return;
     }
-    this.postorderscan_aux(node.left);
-    this.postorderscan_aux(node.right);
+    await this.postorderscan_aux(node.left);
+    await this.postorderscan_aux(node.right);
+    await sleep(DELAY_IN_MS);
+    node.setBackcolor(GREEN);
     console.log(node.data + " " + node.level);
   }
 
-  postorderscan(){
-    this.postorderscan_aux(this.root);
+  async postorderscan(){
+    await this.postorderscan_aux(this.root);
   }
 
-
-  preorder_show(node){
-    if (node == null){
-      return;
-    }
-    if (!node.isVisited){
-      node.draw();
-      node.isVisited = true;
-    }
-    this.preorder_show(node.left);
-    this.preorder_show(node.right);
-  }
-
-  levelorderscan(){
+  async levelorderscan(){
     var list = [];
     var queue = [];
     queue.push(this.root);
     var level = 0;
     while (queue.length > 0){
       var node = queue.shift();
+      await sleep(DELAY_IN_MS);
+      node.setBackcolor(GREEN);
 
       list.push([node, node.left, node.right]);
       console.log(node.data);
@@ -125,6 +123,14 @@ class BinaryTree{
   }
 
   draw(){
-    this.preorder_show(this.root);
+    for (let node of this.nodes){
+      node.draw();
+    }
+  }
+
+  setBackcolor(backcolor){
+    for (let node of this.nodes){
+      node.setBackcolor(backcolor);
+    }
   }
 }

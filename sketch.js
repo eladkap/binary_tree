@@ -7,10 +7,11 @@ var selectorScan;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	background(50);
+	background(200);
 	generateTree();
 	setButtons();
 	setSelectors();
+	frameRate(FPS);
 }
 
 function draw() {
@@ -55,19 +56,29 @@ function setScanType(){
 	var scanType = selectorScan.value();
 }
 
-function scan(){
+async function startScan(){
 	var scanType = selectorScan.value();
 	if (scanType == 'PREORDER'){
-		tree.preorderscan();
+		await tree.preorderscan();
 	}
 	else if (scanType == 'INORDER'){
-		tree.inorderscan();
+		await tree.inorderscan();
 	}
 	else if (scanType == 'POSTORDER'){
-		tree.postorderscan();
+		await tree.postorderscan();
 	}
 	else if (scanType == 'LEVELORDER'){
-		tree.levelorderscan();
+		await tree.levelorderscan();
 	}
-	
+}
+
+async function finishScan(){
+	console.log('Scan finished.');
+	await sleep(1000);
+	tree.setBackcolor(TURQUOISELIGHT);
+}
+
+async function scan(){
+	await startScan();
+	finishScan();
 }

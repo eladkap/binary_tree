@@ -1,6 +1,7 @@
 const SCREEN_WIDTH = 1200;
 const SCREEN_HEIGHT = 900;
 
+const FPS = 30;
 
 const SIZE = 20;
 
@@ -18,8 +19,12 @@ const GREEN = [0, 250, 0];
 const AQUA = [100, 255, 255];
 const BLUE = [0, 0, 250];
 const PURPLE = [200, 0, 250];
+const TURQUOISE = [32, 114, 106];
+const TURQUOISELIGHT = [50, 180, 166];
 
 const HEADER_HEIGHT = 100;
 
 /* Scans */
 const SCAN_OPTIONS = ['PREORDER', 'INORDER', 'POSTORDER', 'LEVELORDER'];
+
+const DELAY_IN_MS = 500;
