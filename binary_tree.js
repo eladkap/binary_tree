@@ -11,7 +11,18 @@ class BinaryTree{
 
 	insert_aux(node, data, level, path){
 		if (node == null){
-      let node = new Node(data, width / 2, SIZE * 2, level, path, TURQUOISELIGHT);
+      let x = this.pos.x;
+      let y = this.pos.y + (level + 1) * SIZE * 5;
+      for (var i = 0; i < path.length; i++) {
+        if (path[i] == 0){
+          x -= Math.pow(0.5, i + 1) * this.pos.x;
+        }
+        else{
+          x += Math.pow(0.5, i + 1) * this.pos.x;
+        }
+      }
+
+      let node = new Node(data, x, y, level, path, TURQUOISELIGHT);
       this.nodes.push(node);
       return node;
 		}
@@ -20,11 +31,13 @@ class BinaryTree{
     }
 		if (random() < 0.5){
       path.push(0);
-			node.left = this.insert_aux(node.left, data, level + 1, path);
+      node.left = this.insert_aux(node.left, data, level + 1, path);
+      node.left.setParent(node);
 		}
 		else{
       path.push(1);
-			node.right = this.insert_aux(node.right, data, level + 1, path);
+      node.right = this.insert_aux(node.right, data, level + 1, path);
+      node.right.setParent(node);
 		}
 		return node;
 	}
@@ -120,6 +133,47 @@ class BinaryTree{
       }
     }
     return list;
+  }
+
+  async getHeightAux(node){
+    if (node == null){
+      return 0;
+    }
+    let leftHeight = await this.getHeightAux(node.left);
+    await sleep(DELAY_IN_MS);
+    if (node.left != null){
+      noStroke();
+      fill(BLUE);
+      textSize(SIZE);
+      textAlign(CENTER);
+      textStyle(NORMAL);
+      text(leftHeight, node.left.pos.x - 2 * SIZE, node.left.pos.y); 
+    }
+    let rightHeight = await this.getHeightAux(node.right);
+    await sleep(DELAY_IN_MS);
+    if (node.right != null){
+      noStroke();
+      fill(PURPLE);
+      textSize(SIZE);
+      textAlign(CENTER);
+      textStyle(NORMAL);
+      text(rightHeight, node.right.pos.x + 2 * SIZE, node.right.pos.y);
+    }
+    await sleep(DELAY_IN_MS);
+    node.setBackcolor(GREEN);
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
+
+  async getHeight(){
+    let treeHeight = await this.getHeightAux(this.root);
+    noStroke();
+    fill(RED);
+    textSize(SIZE);
+    textAlign(CENTER);
+    textStyle(NORMAL);
+    text(treeHeight, this.root.pos.x, this.root.pos.y - 2 * SIZE);
+    await sleep(2 * DELAY_IN_MS);
+    console.log('Tree Height: ' + treeHeight);
   }
 
   draw(){

@@ -45,7 +45,7 @@ function setSelector(pos, options, changeAction){
 }
 
 function generateTree() {
-	tree = new BinaryTree();
+	tree = new BinaryTree(width / 2, ROOT_POS_Y);
 	for (var i = 0; i < 16; i++) {
 		var x = int(random(0, 100));
 		tree.insert(x);
@@ -69,6 +69,9 @@ async function startScan(){
 	}
 	else if (scanType == 'LEVELORDER'){
 		await tree.levelorderscan();
+	}
+	else if (scanType == 'TREE_HEIGHT'){
+		await tree.getHeight();
 	}
 }
 
