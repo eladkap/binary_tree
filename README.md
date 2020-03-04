@@ -11,3 +11,4 @@ Binary tree Visualization is a JavaScript application that simulates binary tree
 - Async-Await Mechanism
 ### Launch
 - Run index.html from any browser (Chrome/Edge/Explorer)
+- Go to URL: https://eladkap.github.io/binary_tree
