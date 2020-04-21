@@ -1,5 +1,5 @@
-class Node{
-  constructor(data, x, y, level, path, backcolor){
+class Node {
+  constructor(data, x, y, level, path, backcolor) {
     this.data = data;
     this.pos = createVector(x, y);
     this.left = null;
@@ -11,35 +11,35 @@ class Node{
     this.visited = false;
   }
 
-  isLeaf(){
+  isLeaf() {
     return this.left == null && this.right == null;
   }
 
-  setBackcolor(backcolor){
+  setBackcolor(backcolor) {
     this.backcolor = backcolor;
   }
 
-  isVisited(){
+  isVisited() {
     return this.visited;
   }
 
-  setVisited(value){
+  setVisited(value) {
     this.visited = value;
   }
 
-  setParent(parent){
+  setParent(parent) {
     this.parent = parent;
   }
 
-  draw(){
+  draw() {
     strokeWeight(1);
     stroke(BLACK);
     fill(this.backcolor);
 
-    if (this.left != null){
+    if (this.left != null) {
       line(this.pos.x, this.pos.y, this.left.pos.x, this.left.pos.y);
     }
-    if (this.right != null){
+    if (this.right != null) {
       line(this.pos.x, this.pos.y, this.right.pos.x, this.right.pos.y);
     }
 

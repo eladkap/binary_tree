@@ -26,8 +26,18 @@ const HEADER_HEIGHT = 100;
 
 const ROOT_POS_Y = 50;
 
-
 /* Scans */
-const SCAN_OPTIONS = ['PREORDER', 'INORDER', 'POSTORDER', 'LEVELORDER', 'TREE_HEIGHT'];
+const SCAN_OPTIONS = [
+  "PREORDER",
+  "INORDER",
+  "POSTORDER",
+  "LEVELORDER",
+  "TREE_HEIGHT",
+];
+
+const SIZE_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const DEFAULT_SIZE = 16;
+
+const DEPTH_OPTIONS = [1, 2, 3, 4];
 
 const DELAY_IN_MS = 500;
