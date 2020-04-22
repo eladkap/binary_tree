@@ -6,6 +6,7 @@ var selectorScan;
 var selectorDepth;
 var selectorSize;
 var treeSize;
+var output;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,11 +15,25 @@ function setup() {
   setButtons();
   setSelectors();
   frameRate(FPS);
+  output = "";
 }
 
 function draw() {
-  background(200);
+  background(GRAY3);
   tree.draw();
+  DrawOutputLine();
+}
+
+function DrawOutputLine() {
+  push();
+  fill(GRAY1);
+  rect(0, height - 100, width, OUTPUT_HEIGHT);
+  fill(BLACK);
+  textAlign(CENTER);
+  textStyle(BOLD);
+  textSize(OUTPUT_FONTSIZE);
+  text(output, width * 0.5, height - 50);
+  pop();
 }
 
 function setButton(pos, label, action) {
@@ -75,6 +90,8 @@ function setSelector(pos, options, changeAction) {
 }
 
 function generateTree() {
+  loop();
+  output = "";
   tree = new BinaryTree(width / 2, ROOT_POS_Y);
   for (var i = 0; i < treeSize; i++) {
     var x = int(random(0, 100));
@@ -87,16 +104,22 @@ function setScanType() {
 }
 
 async function startScan() {
+  output = "";
   var scanType = selectorScan.value();
   if (scanType == "PREORDER") {
+    loop();
     await tree.preorderscan();
   } else if (scanType == "INORDER") {
+    loop();
     await tree.inorderscan();
   } else if (scanType == "POSTORDER") {
+    loop();
     await tree.postorderscan();
   } else if (scanType == "LEVELORDER") {
+    loop();
     await tree.levelorderscan();
   } else if (scanType == "TREE_HEIGHT") {
+    noLoop();
     await tree.getHeight();
   }
 }

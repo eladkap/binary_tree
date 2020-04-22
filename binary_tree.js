@@ -44,6 +44,11 @@ class BinaryTree {
     this.root = this.insert_aux(this.root, data, 0, []);
   }
 
+  visit(node) {
+    console.log(node.data + " " + node.level);
+    output += " " + node.data;
+  }
+
   search_aux(node, data) {
     if (node == null) {
       return false;
@@ -67,9 +72,11 @@ class BinaryTree {
       return;
     }
     await this.inorderscan_aux(node.left);
+    // Begin visit node
     await sleep(DELAY_IN_MS);
     node.setBackcolor(GREEN);
-    console.log(node.data + " " + node.level);
+    this.visit(node);
+    // End visit node
     await this.inorderscan_aux(node.right);
   }
 
@@ -81,9 +88,11 @@ class BinaryTree {
     if (node == null) {
       return;
     }
+    // Begin visit node
     await sleep(DELAY_IN_MS);
     node.setBackcolor(GREEN);
-    console.log(node.data + " " + node.level);
+    this.visit(node);
+    // End visit node
     await this.preorderscan_aux(node.left);
     await this.preorderscan_aux(node.right);
   }
@@ -98,9 +107,11 @@ class BinaryTree {
     }
     await this.postorderscan_aux(node.left);
     await this.postorderscan_aux(node.right);
+    // Begin visit node
     await sleep(DELAY_IN_MS);
     node.setBackcolor(GREEN);
-    console.log(node.data + " " + node.level);
+    this.visit(node);
+    // End visit node
   }
 
   async postorderscan() {
@@ -118,7 +129,10 @@ class BinaryTree {
       node.setBackcolor(GREEN);
 
       list.push([node, node.left, node.right]);
-      console.log(node.data);
+
+      // Begin visit node
+      this.visit(node);
+      // End visit node
 
       if (node.left != null) {
         queue.push(node.left);

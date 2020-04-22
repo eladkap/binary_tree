@@ -35,6 +35,10 @@ const SCAN_OPTIONS = [
   "TREE_HEIGHT",
 ];
 
+/* Output line */
+const OUTPUT_HEIGHT = 500;
+const OUTPUT_FONTSIZE = 20;
+
 const SIZE_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 const DEFAULT_SIZE = 16;
 
